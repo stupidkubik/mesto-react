@@ -1,4 +1,4 @@
-function PopupImage({ 
+function ImagePopup({ 
     isOpen, // Слушатель открытия попапа
     onClose, // Слушатель закрытия попапа
     card, // Данные карточки

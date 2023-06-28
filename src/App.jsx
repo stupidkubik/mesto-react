@@ -3,7 +3,7 @@ import Header from "./components/Header.jsx";
 import Main from "./components/Main.jsx";
 import Footer from "./components/Footer.jsx";
 import PopupWithForm from "./components/PopupWithForm.jsx";
-import PopupImage from "./components/PopupImage.jsx";
+import ImagePopup from "./components/ImagePopup.jsx";
 
 function App() {
   const [openPopupProfile, setOpenPopupProfile] = React.useState(false);
@@ -148,7 +148,7 @@ function App() {
       title="Вы уверены?" 
       buttonTitle="Да" />
 
-      <PopupImage 
+      <ImagePopup 
       onClickOverlay={handleClickByOverlay} 
       card={selectedCard} 
       onClose={closeAllPopups} 
