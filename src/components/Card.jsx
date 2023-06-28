@@ -1,4 +1,10 @@
-function Card({ cardData, onOpenImage, myId, onDeleteConfirmation }) {
+function Card({ 
+    cardData, // Данные карточки
+    onOpenImage, // Стейт открытия картинки 
+    myId, // АйДи юзера
+    onDeleteConfirmation // Стейт подтвержедния удаления карточки
+    }) {
+        
     return (
         <li className="element">
             <img className="element__image" 
@@ -24,8 +30,8 @@ function Card({ cardData, onOpenImage, myId, onDeleteConfirmation }) {
             aria-label="удалить карточку"
             onClick={onDeleteConfirmation} 
             style={
-                myId === cardData.owner._id
-                ? {display: 'block'}
+                myId === cardData.owner._id // Проверяем АйДи карточки
+                ? {display: 'block'} // для своих карточек ставим корзину
                 : {display: 'none'}
                 }>
             </button>

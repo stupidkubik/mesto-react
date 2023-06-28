@@ -1,4 +1,11 @@
-function PopupWithForm({ name, title, buttonTitle = 'Сохранить', isOpen, onClose, children }) {
+function PopupWithForm({ 
+    name, // Название класса попапа
+    title, // Заголовок попапа
+    buttonTitle = 'Сохранить', // Название кнопки сабмита
+    isOpen, // Слушатель открытия попапа
+    onClose, // Слушатель закрытия попапа
+    children // Инпуты попапа
+    }) {
     return (
         <div className={`popup popup_type_${name} ${isOpen ? 'popup_opened' : ''}`}>
             <div className="popup__container">

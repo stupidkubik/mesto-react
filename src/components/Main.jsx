@@ -2,13 +2,19 @@ import React from "react"
 import api from "../utils/api.js"
 import Card from "./Card.jsx"
 
-function Main({ onEditProfile, onAddPlace, onEditAvatar, onOpenImage, onDeleteConfirmation }) {
+function Main({ 
+    onEditProfile, // Слушатель открытия профиля
+    onAddPlace, // Слушатель добавления карточки
+    onEditAvatar, // Слушатель редактирования аватара
+    onOpenImage, // Слушатель открытия картинки
+    onDeleteConfirmation // Слушатель подтверждения удаления
+    }) {
 
-    const [userName, setUserName] = React.useState('')
-    const [userDescription, setUserDescription] = React.useState('')
-    const [userAvatar, setUserAvatar] = React.useState('')
-    const [cards, setCards] = React.useState([])
-    const [myId, setMyId] = React.useState('')
+    const [userName, setUserName] = React.useState('') // Изменение профиля
+    const [userDescription, setUserDescription] = React.useState('') // Добавление карточки
+    const [userAvatar, setUserAvatar] = React.useState('') // Обновление аватара
+    const [cards, setCards] = React.useState([]) // Загрузка карточек с сервера
+    const [myId, setMyId] = React.useState('') // Запись АйДи юзера
 
     React.useEffect(() => {
         Promise.all([
@@ -16,7 +22,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onOpenImage, onDeleteCo
             api.getId() // Запрашиваем данные юзера
         ])
         .then(([cardsData, user]) => {
-            setMyId(user._id) // наполняем объект свойствами
+            setMyId(user._id) // Записываем свой АйДи
             setUserName(user.name)
             setUserDescription(user.about)
             setUserAvatar(user.avatar)

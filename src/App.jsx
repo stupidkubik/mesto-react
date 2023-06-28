@@ -14,26 +14,24 @@ function App() {
 
   const [selectedCard, setSelectedCard] = React.useState('');
 
-  function handleEditProfileClick() {
+  function handleEditProfileClick() { // Открытие попапа обновления профиля
     setOpenPopupProfile(true)
   }
-  function handleAddPlaceClick() {
+  function handleAddPlaceClick() { // Открытие попапа с добавлением карточки
     setOpenPopupAdd(true)
   }
-  function handleEditAvatarClick() {
+  function handleEditAvatarClick() { // Открытие попапа обновления аватара
     setOpenPopupAvatar(true)
   }
-
-  function handleDeleteClick() {
+  function handleDeleteClick() { // Открытие попапа с удалением
     setOpenPopupDelete(true)
   }
-
-  function handleCardClick(evt) {
+  function handleCardClick(evt) { // Открытие попапа с картинкой
     setSelectedCard(evt.target)
     setOpenPopupImage(true)
   }
 
-  function closeAllPopups() {
+  function closeAllPopups() { // Закрытие всех попапов по крестику
     setOpenPopupProfile(false)
     setOpenPopupAdd(false)
     setOpenPopupAvatar(false)
@@ -43,7 +41,7 @@ function App() {
     setSelectedCard('')
   }
   
-  const handleClickByOverlay = (evt) => {
+  const handleClickByOverlay = (evt) => { // Закрытие попапов по оверлэю
     // console.log(evt)
     // if(evt.key === 'Escape') {
     //   closeAllPopups();
