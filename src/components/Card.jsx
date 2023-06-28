@@ -4,7 +4,11 @@ function Card({
     myId, // АйДи юзера
     onDeleteConfirmation // Стейт подтвержедния удаления карточки
     }) {
-        
+
+    function isOwner() {
+        return myId === cardData.owner._id // Проверяем АйДи карточки
+    }
+
     return (
         <li className="element">
             <img className="element__image" 
@@ -24,18 +28,15 @@ function Card({
                     <div className="element__like-count">{cardData.likes.length}</div>
                 </div>
             </div>
-        
-            <button className="element__trash-icon" 
-            type="button" 
-            aria-label="удалить карточку"
-            onClick={onDeleteConfirmation} 
-            style={
-                myId === cardData.owner._id // Проверяем АйДи карточки
-                ? {display: 'block'} // для своих карточек ставим корзину
-                : {display: 'none'}
-                }>
-            </button>
-      </li>
+
+            {
+                isOwner && <button className="element__trash-icon" 
+                type="button" 
+                aria-label="удалить карточку"
+                onClick={onDeleteConfirmation}>
+                </button>                    
+            }
+        </li>
     )
 }
 
