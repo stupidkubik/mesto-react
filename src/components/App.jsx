@@ -1,9 +1,9 @@
 import React from "react";
-import Header from "./components/Header.jsx";
-import Main from "./components/Main.jsx";
-import Footer from "./components/Footer.jsx";
-import PopupWithForm from "./components/PopupWithForm.jsx";
-import ImagePopup from "./components/ImagePopup.jsx";
+import Header from "./Header.jsx";
+import Main from "./Main.jsx";
+import Footer from "./Footer.jsx";
+import PopupWithForm from "./PopupWithForm.jsx";
+import ImagePopup from "./ImagePopup.jsx";
 
 function App() {
   const [openPopupProfile, setOpenPopupProfile] = React.useState(false);
@@ -12,7 +12,7 @@ function App() {
   const [openPopupDelete, setOpenPopupDelete] = React.useState(false);
   const [openPopupImage, setOpenPopupImage] = React.useState(false);
 
-  const [selectedCard, setSelectedCard] = React.useState('');
+  const [selectedCard, setSelectedCard] = React.useState({ name: '', link: '' });
 
   function handleEditProfileClick() { // Открытие попапа обновления профиля
     setOpenPopupProfile(true)
@@ -27,7 +27,9 @@ function App() {
     setOpenPopupDelete(true)
   }
   function handleCardClick(evt) { // Открытие попапа с картинкой
-    setSelectedCard(evt.target)
+    setSelectedCard({ name: evt.target.src, link: evt.target.alt})
+    console.log(selectedCard)
+    console.log(evt.target.src)
     setOpenPopupImage(true)
   }
 
@@ -38,23 +40,13 @@ function App() {
     setOpenPopupDelete(false)
     setOpenPopupImage(false)
 
-    setSelectedCard('')
-  }
-  
-  const handleClickByOverlay = (evt) => { // Закрытие попапов по оверлэю
-    // console.log(evt)
-    // if(evt.key === 'Escape') {
-    //   closeAllPopups();
-    // }
-
-    if(evt.target === evt.currentTarget) {
-      closeAllPopups();
-    }
+    setSelectedCard({ name: '', link: '' })
   }
 
   return (
     <div className="App">
       <Header />
+      
       <Main onEditProfile={handleEditProfileClick} 
       onAddPlace={handleAddPlaceClick} 
       onEditAvatar={handleEditAvatarClick} 
@@ -62,9 +54,9 @@ function App() {
       onDeleteConfirmation={handleDeleteClick} />
 
       <Footer />
+
       <PopupWithForm 
       onClose={closeAllPopups} 
-      onClickOverlay={handleClickByOverlay} 
       isOpen={openPopupProfile} 
       name="profile" 
       title="Редактировать профиль">
@@ -95,7 +87,6 @@ function App() {
 
       <PopupWithForm 
       onClose={closeAllPopups} 
-      onClickOverlay={handleClickByOverlay} 
       isOpen={openPopupAdd} 
       name="add" 
       title="Новое место" 
@@ -125,7 +116,6 @@ function App() {
 
       <PopupWithForm 
       onClose={closeAllPopups} 
-      onClickOverlay={handleClickByOverlay} 
       isOpen={openPopupAvatar} 
       name="avatar" 
       title="Обновить аватар">
@@ -142,14 +132,12 @@ function App() {
 
       <PopupWithForm 
       onClose={closeAllPopups} 
-      onClickOverlay={handleClickByOverlay} 
       isOpen={openPopupDelete} 
       name="delete" 
       title="Вы уверены?" 
       buttonTitle="Да" />
 
       <ImagePopup 
-      onClickOverlay={handleClickByOverlay} 
       card={selectedCard} 
       onClose={closeAllPopups} 
       isOpen={openPopupImage} />

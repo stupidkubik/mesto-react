@@ -4,29 +4,29 @@ class Api {
         this._headers = headers;
     }
 
-    async getId() {
-        try {
-            const idData = await fetch(`${this._baseUrl}/users/me`, {
-                method: 'GET',
-                headers: this._headers
-            });
-            return idData.json();
-        } catch(err) {
-            console.error('Ошибка получения ID: ', err);
+    _checkResponse(res) {
+        if (res.ok) {
+            return res.json();
+        } else {
+            return Promise.reject(`Ошибка ${res.status}`);
         }
     }
 
-    async getCards() {
-        try {
-            const cardsData = await fetch(`${this._baseUrl}/cards`, {
-                method: 'GET',
-                headers: this._headers
-            });
-            return cardsData.json();
-        } catch(err) {
-            console.error('Ошибка получения списка карточек: ', err);
-        }
+    async getUserInfo() {
+        const idData = await fetch(`${this._baseUrl}/users/me`, {
+            method: 'GET',
+            headers: this._headers
+        });
+        return this._checkResponse(idData);
     }
+
+    async getCards() {
+        const cardsData = await fetch(`${this._baseUrl}/cards`, {
+            method: 'GET',
+            headers: this._headers
+        });
+        return this._checkResponse(cardsData);
+    }    
 
     // async postCard(cardData) {
     //     try {

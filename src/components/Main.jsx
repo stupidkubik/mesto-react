@@ -19,7 +19,7 @@ function Main({
     React.useEffect(() => {
         Promise.all([
             api.getCards(), // Запрашиваем массив карточек с сервера
-            api.getId() // Запрашиваем данные юзера
+            api.getUserInfo() // Запрашиваем данные юзера
         ])
         .then(([cardsData, user]) => {
             setMyId(user._id) // Записываем свой АйДи
@@ -27,6 +27,9 @@ function Main({
             setUserDescription(user.about)
             setUserAvatar(user.avatar)
             setCards(cardsData)
+        })
+        .catch((err) => {
+            console.error(err);
         })
     }, [])
 
