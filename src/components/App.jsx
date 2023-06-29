@@ -27,9 +27,7 @@ function App() {
     setOpenPopupDelete(true)
   }
   function handleCardClick(evt) { // Открытие попапа с картинкой
-    setSelectedCard({ name: evt.target.src, link: evt.target.alt})
-    console.log(selectedCard)
-    console.log(evt.target.src)
+    setSelectedCard({ link: evt.target.src, name: evt.target.alt})
     setOpenPopupImage(true)
   }
 
@@ -42,6 +40,26 @@ function App() {
 
     setSelectedCard({ name: '', link: '' })
   }
+
+  const isOpen = openPopupProfile 
+  || openPopupAdd 
+  || openPopupAvatar 
+  || openPopupImage
+
+  React.useEffect(() => {
+    function closeByEscape(evt) {
+      if(evt.key === 'Escape') {
+        closeAllPopups()
+      }
+    }
+    
+    if(isOpen) { // навешиваем только при открытии
+      document.addEventListener('keydown', closeByEscape)
+      return () => {
+        document.removeEventListener('keydown', closeByEscape)
+      }
+    }
+  }, [isOpen])
 
   return (
     <div className="App">

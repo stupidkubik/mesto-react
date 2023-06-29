@@ -9,19 +9,6 @@ function PopupWithForm({
 	children // Инпуты попапа
 	}) {
 
-	React.useEffect(() => { // Закрытие попапов на эскейп
-		const handleClickByEsc = (evt) => {
-			if(evt.key === 'Escape') {
-				onClose();
-			}
-		}
-		document.addEventListener('keydown', handleClickByEsc)
-
-		return () => {
-			document.removeEventListener('keydown', handleClickByEsc)
-		}
-	}, [onClose])
-
 	const handleClickByOverlay = (evt) => { // Закрытие попапов по оверлэю
 		if(evt.target === evt.currentTarget) {
 			onClose();

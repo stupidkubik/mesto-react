@@ -6,19 +6,6 @@ function ImagePopup({
   card // Объект с данными карточки
   }) {
 
-  React.useEffect(() => { // Закрытие попапов на эскейп
-    const handleClickByEsc = (evt) => {
-      if(evt.key === 'Escape') {
-        onClose();
-      }
-    }
-    document.addEventListener('keydown', handleClickByEsc)
-
-    return () => {
-      document.removeEventListener('keydown', handleClickByEsc)
-    }
-  }, [onClose])
-
   const handleClickByOverlay = (evt) => { // Закрытие попапов по оверлэю
     if(evt.target === evt.currentTarget) {
         onClose();
@@ -31,10 +18,10 @@ function ImagePopup({
       <div className="popup__image-box">
         <img 
         className="popup__image" 
-        src={card.name || "#"} 
-        alt={card.link || " "} />
+        src={card.link || "#"} 
+        alt={card.name || " "} />
         
-        <h2 className="popup__description">{card.alt || " "}</h2>
+        <h2 className="popup__description">{card.name || " "}</h2>
         
         <button className="popup__close" 
         type="button" 
