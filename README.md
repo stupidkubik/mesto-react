@@ -2,6 +2,7 @@
 
 *Страница в соцсети с фотографиями для Яндекс Практикума*
 
+* [Ссылка на GitHub Pages](https://stupidkubik.github.io/mesto-react/)
 ### Технологии
 * React 18.2
 * Create React App
