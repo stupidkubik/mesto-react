@@ -1,37 +1,18 @@
 import React from "react"
-import api from "../utils/api.js"
 import Card from "./Card.jsx"
+import CurrentUserContext from "../contexts/CurrentUserContext.js"
 
 function Main({ 
+  cards,
   onEditProfile, // Слушатель открытия профиля
   onAddPlace, // Слушатель добавления карточки
   onEditAvatar, // Слушатель редактирования аватара
   onOpenImage, // Слушатель открытия картинки
-  onDeleteConfirmation // Слушатель подтверждения удаления
+  onDeleteConfirmation, // Слушатель подтверждения удаления
+  handleCardLike
   }) {
 
-  const [userName, setUserName] = React.useState('') // Изменение профиля
-  const [userDescription, setUserDescription] = React.useState('') // Добавление карточки
-  const [userAvatar, setUserAvatar] = React.useState('') // Обновление аватара
-  const [cards, setCards] = React.useState([]) // Загрузка карточек с сервера
-  const [myId, setMyId] = React.useState('') // Запись АйДи юзера
-
-  React.useEffect(() => {
-    Promise.all([
-      api.getCards(), // Запрашиваем массив карточек с сервера
-      api.getUserInfo() // Запрашиваем данные юзера
-    ])
-    .then(([cardsData, user]) => {
-      setMyId(user._id) // Записываем свой АйДи
-      setUserName(user.name)
-      setUserDescription(user.about)
-      setUserAvatar(user.avatar)
-      setCards(cardsData)
-    })
-    .catch((err) => {
-      console.error(err);
-    })
-  }, [])
+  const currentUser = React.useContext(CurrentUserContext);
 
   return (
     <main className="content App__content">
@@ -43,13 +24,13 @@ function Main({
           aria-label="редактировать аватар"
           onClick={onEditAvatar}>
             <img className="profile__avatar" 
-            src={userAvatar} 
+            src={currentUser.avatar} 
             alt="Аватар профиля" />
           </button>
           
           <div className="profile__info">
             <div className="profile__name-item">
-              <h1 className="profile__name">{userName}</h1>
+              <h1 className="profile__name">{currentUser.name}</h1>
               
               <button className="profile__edit" 
               type="button" 
@@ -57,7 +38,7 @@ function Main({
               onClick={onEditProfile} />
             </div>
 
-            <p className="profile__caption">{userDescription}</p>
+            <p className="profile__caption">{currentUser.about}</p>
           </div>
         </div>
 
@@ -76,8 +57,8 @@ function Main({
               key={cardData._id}
               cardData={cardData}
               onOpenImage={onOpenImage}
-              myId={myId}
-              onDeleteConfirmation={onDeleteConfirmation} />
+              onDeleteConfirmation={onDeleteConfirmation} 
+              handleCardLike={handleCardLike}/>
             )
           })}
         </ul>

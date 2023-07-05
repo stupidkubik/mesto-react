@@ -75,41 +75,29 @@ class Api {
 //     }
 // }
 
-// async putLike(cardId) {
-//     try {
-//         const countLike = await fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-//             method: 'PUT',
-//             headers: this._headers
-//         });
-//         return countLike.json();
-//     } catch(err) {
-//         console.error('Ошибка сервера при постановке лайка: ', err);
-//     }
-// }
+  async changeLikeCardStatus(cardId, isLiked) {
+    if (isLiked) {
+      const deleteLike = await fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+        method: 'DELETE',
+        headers: this._headers
+      })
+      return this._checkResponse(deleteLike);
+    } else {
+      const putLike = await fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+        method: 'PUT',
+        headers: this._headers
+      });
+      return this._checkResponse(putLike);
+    }
+  }
 
-// async deleteLike(cardId) {
-//     try {
-//         const countLike = await fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-//             method: 'DELETE',
-//             headers: this._headers
-//         });
-//         return countLike.json();
-//     } catch(err) {
-//         console.error('Ошибка сервера при удалении лайка: ', err);
-//     }
-// }
-
-// async deleteCard(cardId) {
-//     try {
-//         const cardDelete = await fetch(`${this._baseUrl}/cards/${cardId}`, {
-//             method: 'DELETE',
-//             headers: this._headers
-//         });
-//         return cardDelete.json();
-//     } catch(err) {
-//         console.error('Ошибка удаления карточки: ', err);
-//     }
-// }
+  async deleteCard(cardId) {
+    const cardDelete = await fetch(`${this._baseUrl}/cards/${cardId}`, {
+        method: 'DELETE',
+        headers: this._headers
+    });
+    return this._checkResponse(cardDelete);
+  }
 }
 
 const api = new Api( {

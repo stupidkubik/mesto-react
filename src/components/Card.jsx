@@ -1,13 +1,19 @@
+import CurrentUserContext from "../contexts/CurrentUserContext.js"
+import React from "react"
+
 function Card({ 
   cardData, // Данные карточки
   onOpenImage, // Стейт открытия картинки 
-  myId, // АйДи юзера
-  onDeleteConfirmation // Стейт подтвержедния удаления карточки
+  onDeleteConfirmation, // Стейт подтвержедния удаления карточки
+  handleCardLike
   }) {
 
   function isOwner() {
-    return myId === cardData.owner._id // Проверяем АйДи карточки
+    return currentUser._id === cardData.owner._id // Проверяем АйДи карточки
   }
+  const currentUser = React.useContext(CurrentUserContext)
+  const isLiked = cardData.likes.some(i => i._id === currentUser._id)
+  const cardLikeButtonClassName = (`element__like-icon ${isLiked && 'element__like-icon_active'}`) 
 
   return (
     <li className="element">
@@ -20,9 +26,10 @@ function Card({
         <h2 className="element__title">{cardData.name}</h2>
   
         <div className="element__like-box">
-          <button className="element__like-icon" 
+          <button className={cardLikeButtonClassName}
           type="button" 
-          aria-label="поставить лайк">
+          aria-label="поставить лайк"
+          onClick={() => handleCardLike(cardData)}>
           </button>
 
           <div className="element__like-count">{cardData.likes.length}</div>
@@ -33,8 +40,8 @@ function Card({
         isOwner() && <button className="element__trash-icon" 
         type="button" 
         aria-label="удалить карточку"
-        onClick={onDeleteConfirmation}>
-        </button>                    
+        onClick={() => onDeleteConfirmation()}>
+        </button>
       }
     </li>
   )

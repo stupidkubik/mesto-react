@@ -6,6 +6,7 @@ function PopupWithForm({
 	buttonTitle = 'Сохранить', // Название кнопки сабмита
 	isOpen, // Слушатель открытия попапа
 	onClose, // Слушатель закрытия попапа
+	onSubmit,
 	children // Инпуты попапа
 	}) {
 
@@ -33,7 +34,12 @@ function PopupWithForm({
 				// noValidate
 				>
 					{children}
-					<button className="popup__submit" type="submit">{buttonTitle}</button>
+					
+					<button className="popup__submit" 
+					type="submit" 
+					onSubmit={onSubmit}>
+						{buttonTitle}
+					</button>
 				</form>
 			</div>
 		</div>
