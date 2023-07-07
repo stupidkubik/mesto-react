@@ -41,7 +41,7 @@ function Card({
         isOwner() && <button className="element__trash-icon" 
         type="button" 
         aria-label="удалить карточку"
-        onClick={() => onDelete(cardData)}>
+        onClick={(evt) => onDelete(evt, cardData)}>
         </button>
       }
     </li>

@@ -4,6 +4,10 @@ class Api {
     this._headers = headers
   }
 
+  _request(url, options) {
+    return fetch(`${this._baseUrl}${url}`, options).then(this._checkResponse)
+  }
+
   _checkResponse(res) {
     if (res.ok) {
       return res.json();
@@ -13,78 +17,86 @@ class Api {
   }
 
   async getUserInfo() {
-    const idData = await fetch(`${this._baseUrl}/users/me`, {
+    const idData = await this._request(
+      `/users/me`, {
       method: 'GET',
       headers: this._headers
     })
-    return this._checkResponse(idData)
+    return idData
   }
 
   async getCards() {
-    const cardsData = await fetch(`${this._baseUrl}/cards`, {
+    const cardsData = await this._request(
+      `/cards`, {
       method: 'GET',
       headers: this._headers
     })
-    return this._checkResponse(cardsData)
+    return cardsData
   }    
 
   async postCard({ title, link }) {
-    const newCardData = await fetch(`${this._baseUrl}/cards`, {
+    const newCardData = await this._request(
+      `/cards`, {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
         name: title,
         link: link
-        })
+      })
     })
-    return this._checkResponse(newCardData)
+    return newCardData
   } 
 
   async updateProfile({ name, about }) {
-    const newProfileData = await fetch(`${this._baseUrl}/users/me`, {
+    const newProfileData = await this._request(
+      `/users/me`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
         name: name,
         about: about
       })
-    }) 
-    return this._checkResponse(newProfileData)
+    })
+    return newProfileData
   }
 
-  async updateAvatar(avatar) {
-    const newAvatar = await fetch(`${this._baseUrl}/users/me/avatar`, {
+  async updateAvatar({ avatar }) {
+    const newAvatar = await this._request(
+      `/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
         avatar: avatar
       })
     })
-    return this._checkResponse(newAvatar)
+    return newAvatar
   }
 
   async changeLikeCardStatus(cardId, isLiked) {
     if (isLiked) {
-      const deleteLike = await fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+      const deleteLike = await this._request(
+        `/cards/${cardId}/likes`, {
         method: 'DELETE',
         headers: this._headers
       })
-      return this._checkResponse(deleteLike)
+      return deleteLike
     } else {
-      const putLike = await fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+      const putLike = await this._request(
+        `/cards/${cardId}/likes`, {
         method: 'PUT',
         headers: this._headers
       })
-      return this._checkResponse(putLike)
+      return putLike
     }
   }
 
   async deleteCard(cardId) {
-    const cardDelete = await fetch(`${this._baseUrl}/cards/${cardId}`, {
-        method: 'DELETE',
-        headers: this._headers
-    });
-    return this._checkResponse(cardDelete)
+    const cardDelete = await this._request(
+      `/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: this._headers
+    })
+    return cardDelete
   }
 }
 
