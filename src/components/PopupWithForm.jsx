@@ -31,15 +31,12 @@ function PopupWithForm({
 				<form 
 				className={`popup__form popup__form_${name}`} 
 				name={`${name}-form`} 
+				onSubmit={(evt) => onSubmit('', evt)} 
 				// noValidate
 				>
 					{children}
 					
-					<button className="popup__submit" 
-					type="submit" 
-					onSubmit={onSubmit}>
-						{buttonTitle}
-					</button>
+					<button className="popup__submit" type="submit">{buttonTitle}</button>
 				</form>
 			</div>
 		</div>

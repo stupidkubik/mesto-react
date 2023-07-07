@@ -8,7 +8,7 @@ function Main({
   onAddPlace, // Слушатель добавления карточки
   onEditAvatar, // Слушатель редактирования аватара
   onOpenImage, // Слушатель открытия картинки
-  onDeleteConfirmation, // Слушатель подтверждения удаления
+  onDelete, // Слушатель подтверждения удаления
   handleCardLike
   }) {
 
@@ -57,7 +57,7 @@ function Main({
               key={cardData._id}
               cardData={cardData}
               onOpenImage={onOpenImage}
-              onDeleteConfirmation={onDeleteConfirmation} 
+              onDelete={onDelete} 
               handleCardLike={handleCardLike}/>
             )
           })}

@@ -4,13 +4,14 @@ import React from "react"
 function Card({ 
   cardData, // Данные карточки
   onOpenImage, // Стейт открытия картинки 
-  onDeleteConfirmation, // Стейт подтвержедния удаления карточки
-  handleCardLike
+  onDelete, // Стейт подтвержедния удаления карточки
+  handleCardLike // Обработчик лайков
   }) {
 
   function isOwner() {
     return currentUser._id === cardData.owner._id // Проверяем АйДи карточки
   }
+
   const currentUser = React.useContext(CurrentUserContext)
   const isLiked = cardData.likes.some(i => i._id === currentUser._id)
   const cardLikeButtonClassName = (`element__like-icon ${isLiked && 'element__like-icon_active'}`) 
@@ -40,7 +41,7 @@ function Card({
         isOwner() && <button className="element__trash-icon" 
         type="button" 
         aria-label="удалить карточку"
-        onClick={() => onDeleteConfirmation()}>
+        onClick={() => onDelete(cardData)}>
         </button>
       }
     </li>
