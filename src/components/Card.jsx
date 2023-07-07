@@ -14,7 +14,7 @@ function Card({
 
   const currentUser = React.useContext(CurrentUserContext)
   const isLiked = cardData.likes.some(i => i._id === currentUser._id)
-  const cardLikeButtonClassName = (`element__like-icon ${isLiked && 'element__like-icon_active'}`) 
+  const cardLikeButtonClassName = (`element__like-icon ${isLiked ? 'element__like-icon_active' : ''}`) 
 
   return (
     <li className="element">
