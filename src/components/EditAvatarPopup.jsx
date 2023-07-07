@@ -7,7 +7,7 @@ import Input from "./Input.jsx"
 
 const EditAvatarPopup = ({ isOpen, onSubmit }) => {
 	const { closeAllPopups } = React.useContext(AppContext)
-	const {values, handleChange, setValues} = useForm({})
+	const {values, handleChange, setValues} = useForm({ avatar: '' })
 
 	usePopupClose(isOpen, closeAllPopups)
 	

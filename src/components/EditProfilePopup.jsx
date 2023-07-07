@@ -9,13 +9,17 @@ import Input from "./Input.jsx"
 const EditProfilePopup = ({ isOpen, onSubmit }) => {
 	const { closeAllPopups } = React.useContext(AppContext)
 	const currentUser = React.useContext(CurrentUserContext)
-	const {values, handleChange, setValues} = useForm({})
+
+	const {values, handleChange, setValues} = useForm({ 
+		name: currentUser?.name ?? '', 
+		about: currentUser?.about ?? ''
+	})
 
 	// Вставляем данные профиля в инпуты
 	React.useEffect(() => {
 		setValues({ 
-			name: currentUser?.name, 
-			about: currentUser?.about
+			name: currentUser?.name ?? '', 
+			about: currentUser?.about ?? ''
 		})
 	}, [currentUser, isOpen, setValues])
 
