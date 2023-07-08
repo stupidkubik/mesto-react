@@ -1,13 +1,12 @@
 import React from "react"
 import usePopupClose from "../hooks/usePopupClose.js"
+import AppContext from "../contexts/AppContext.js"
 
-function ImagePopup({ 
-  isOpen, // Слушатель открытия попапа
-  onClose, // Слушатель закрытия попапа
-  card // Объект с данными карточки
-  }) {
+function ImagePopup({ isOpen, card }) {
 
-  usePopupClose(isOpen, onClose)
+  const { closeAllPopups } = React.useContext(AppContext)
+
+  usePopupClose(isOpen, closeAllPopups)
 
   return (
     <div className={`popup popup_type_image ${isOpen ? 'popup_opened' : ''}`}>
@@ -22,7 +21,7 @@ function ImagePopup({
         <button className="popup__close" 
         type="button" 
         aria-label="Закрыть окно"
-        onClick={onClose}>
+        onClick={closeAllPopups}>
         </button>
       </div>
     </div>

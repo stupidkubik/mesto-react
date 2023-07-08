@@ -1,15 +1,10 @@
 import React from "react"
-import AppContext from "../contexts/AppContext.js"
-import usePopupClose from "../hooks/usePopupClose.js"
 import useForm from "../hooks/useForm.js"
 import PopupWithForm from "./PopupWithForm.jsx"
 import Input from "./Input.jsx"
 
 const AddPlacePopup = ({ isOpen, onSubmit }) => {
-	const { closeAllPopups } = React.useContext(AppContext)
 	const {values, handleChange, setValues} = useForm({ title: '', link: '' })
-
-	usePopupClose(isOpen, closeAllPopups)
 
 	React.useEffect(() => {
 		setValues({ title: '', link: '' })
@@ -33,7 +28,7 @@ const AddPlacePopup = ({ isOpen, onSubmit }) => {
 			maxLength={"30"} 
 			spanId={"error-card-name"}
 			value={values.title} 
-			onChange={(evt) => handleChange(evt, 'title')} 
+			onChange={handleChange} 
 			/>
 
 			<Input
@@ -44,7 +39,7 @@ const AddPlacePopup = ({ isOpen, onSubmit }) => {
 			placeholder={"Ссылка на картинку"} 
 			spanId={"error-card-link"}
 			value={values.link} 
-			onChange={(evt) => handleChange(evt, 'link')} 
+			onChange={handleChange} 
 			/>
 		</PopupWithForm>
 	)

@@ -1,13 +1,10 @@
 import React from "react"
-import AppContext from "../contexts/AppContext.js"
 import CurrentUserContext from "../contexts/CurrentUserContext.js"
-import usePopupClose from "../hooks/usePopupClose.js"
 import useForm from "../hooks/useForm.js"
 import PopupWithForm from "./PopupWithForm.jsx"
 import Input from "./Input.jsx"
 
 const EditProfilePopup = ({ isOpen, onSubmit }) => {
-	const { closeAllPopups } = React.useContext(AppContext)
 	const currentUser = React.useContext(CurrentUserContext)
 
 	const {values, handleChange, setValues} = useForm({ 
@@ -15,7 +12,6 @@ const EditProfilePopup = ({ isOpen, onSubmit }) => {
 		about: currentUser?.about ?? ''
 	})
 
-	// Вставляем данные профиля в инпуты
 	React.useEffect(() => {
 		setValues({ 
 			name: currentUser?.name ?? '', 
@@ -23,12 +19,10 @@ const EditProfilePopup = ({ isOpen, onSubmit }) => {
 		})
 	}, [currentUser, isOpen, setValues])
 
-	usePopupClose(isOpen, closeAllPopups)
-
   return (
 		<PopupWithForm 
-		name={'profile'} 
-		title={'Редактировать профиль'} 
+		name={"profile"} 
+		title={"Редактировать профиль"} 
 		isOpen={isOpen} 
 		onSubmit={(evt) => onSubmit(evt, values)}>
 
@@ -42,7 +36,7 @@ const EditProfilePopup = ({ isOpen, onSubmit }) => {
 				maxLength={"40"} 
 				spanId={"error-profile-name"}
 				value={values.name} 
-				onChange={(evt) => handleChange(evt, 'name')} 
+				onChange={handleChange} 
 			/>
 
 			<Input
@@ -55,7 +49,7 @@ const EditProfilePopup = ({ isOpen, onSubmit }) => {
 				maxLength={"200"} 
 				spanId={"error-profile-caption"}
 				value={values.about} 
-				onChange={(evt) => handleChange(evt, 'about')} 
+				onChange={handleChange} 
 			/>
 		</PopupWithForm>
 	)

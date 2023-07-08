@@ -43,7 +43,7 @@ function App() {
 
   // Общая функция запроса к серверу
   function handleSubmit(request) {
-    setIsLoading(true);
+    setIsLoading(true)
     request()
       .then(closeAllPopups)
       .catch(console.error)
@@ -54,6 +54,7 @@ function App() {
   function handleEditProfileClick() {
     setOpenPopupProfile(true)
   }
+
   function handleEditProfileSubmit(evt, inputValues) {
     evt.preventDefault()
     function makeRequest() {
@@ -121,7 +122,7 @@ function App() {
     handleSubmit(makeRequest)
   }
 
-  function closeAllPopups() { // Закрытие всех попапов по крестику
+  function closeAllPopups() { // Закрытие всех попапов
     setOpenPopupProfile(false)
     setOpenPopupAdd(false)
     setOpenPopupAvatar(false)
@@ -131,26 +132,6 @@ function App() {
     setSelectedCard({ name: '', link: '' })
     setDeletedCardId('')
   }
-
-  const isOpen = openPopupProfile 
-  || openPopupAdd 
-  || openPopupAvatar 
-  || openPopupImage
-
-  React.useEffect(() => { // Закрытие попапов по Esc
-    function closeByEscape(evt) {
-      if(evt.key === 'Escape') {
-        closeAllPopups()
-      }
-    }
-    
-    if(isOpen) { // навешиваем только при открытии
-      document.addEventListener('keydown', closeByEscape)
-      return () => {
-        document.removeEventListener('keydown', closeByEscape)
-      }
-    }
-  }, [isOpen])
 
   return (
     <AppContext.Provider value={{ isLoading, closeAllPopups }}>
